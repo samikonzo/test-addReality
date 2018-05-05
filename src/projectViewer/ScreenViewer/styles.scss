@@ -1,0 +1,31 @@
+/* .ScreenViewer{
+	//max-height: 100%;
+	border: 1px solid red;
+	position: relative;
+
+
+	&Zone{
+		position: absolute;
+		border: 1px solid blue;
+		cursor: pointer;
+
+		&:hover{
+			box-shadow: 1px 1px 10px 10px lighten(gold, 50%);
+		}
+
+		&_label{
+			position: absolute;
+			top:50%;
+			left:50%;
+			transform: translate(-50%, -50%);
+			user-select: none;
+		}
+	}
+
+	&_wrapper{
+		max-width: 100%;
+		max-height: 100%;
+		position: relative;
+		border: 1px dashed blue;
+	}
+} */

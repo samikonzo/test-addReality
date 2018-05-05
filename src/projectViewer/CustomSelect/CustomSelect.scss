@@ -1,0 +1,26 @@
+.CustomSelect{
+	
+
+	&--opened{
+
+		.CustomSelect_select{
+			max-height: auto;
+		}
+	}
+}
+.CustomSelect_header{}
+.CustomSelect_button{}
+
+
+.CustomSelect_select{
+	max-height: 0;
+	height: auto;
+	border: 1px solid red;
+	position: absolute;
+	background: white;
+	overflow: hidden;
+}
+
+.CustomSelect_option{
+	&--selected{}
+}
