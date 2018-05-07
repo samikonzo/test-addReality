@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import ScreenViewer from './ScreenViewer/ScreenViewer'
 import CustomSelect from './CustomSelect/CustomSelect'
-import parsingInvalidJSON from './parsingInvalidJSON'
+import parsingInvalidJSON from './parser/parsingInvalidJSON'
 import './styles.scss';
 
 const l = console.log
@@ -87,17 +87,29 @@ class App extends Component<Props, State> {
 	}
 
   render() {
-  	//let { width, height} = this.state.project
+  	let { width, height} = this.state.project
   	let screens = this.state.screens
   	let selectedScreen = this.state.screens && this.state.screens[this.state.selectedScreenNum]
 
   	return (
       <div className="projectViewer">
-       {/* project size : {width} x {height}   */}
+
 
         <ScreenViewer screen={selectedScreen} fullSize={this.state.project}/>
-        
-        <CustomSelect screens={screens} selectedScreenNum={this.state.selectedScreenNum} onChange={this.handleScreenChange}/>
+
+        <div className="projectData">
+        	<div className="projectData-block">
+        		<h3 className="projectData-block_label">Project size</h3>
+        		<div className="projectData-block_data">{width} x {height}</div>   
+        	</div>
+
+        	<div className="projectData-block">
+        		<h3 className="projectData-block_label">Current scene</h3>
+        		<div className="projectData-block_data">
+        			<CustomSelect screens={screens} selectedScreenNum={this.state.selectedScreenNum} onChange={this.handleScreenChange}/>
+        		</div>	
+        	</div>
+        </div>
 
       </div>
     );

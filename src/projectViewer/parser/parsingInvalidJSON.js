@@ -1,9 +1,5 @@
 var l = console.log
 
-/**
-* 
-*/
-
 function findModulesAndProject(str){
 	var regExp_module_project = /(?:(?:modules).*?:(.*]).*?)?(?:(?:project).*?:(.*?}))/im
 	var matches = str.match(regExp_module_project)
@@ -29,6 +25,7 @@ function findModulesAndProject(str){
 			}
 		}
 
+		// if modules more than one
 		modules.forEach(module => {
 			if(module.screens) screens.push(module.screens)
 		})
@@ -64,7 +61,7 @@ function findArrayAndObject(str){
 	var arrayLvlSymbol = '_'
 	
  
- 	// modificate string : replace [] {} with -_1open- etc
+ 	// modificate string : replace [] {} with pattern -_1open- etc
 	str = str.split('')
 	 
 	for(var i = 0; i < str.length; i++){
@@ -99,12 +96,8 @@ function findArrayAndObject(str){
 		var regExp = new RegExp(`${startEndLvlSymbol}([${arrayLvlSymbol}|${objectLvlSymbol}])(\\d+)${groupOpen}${startEndLvlSymbol}(.*?)${startEndLvlSymbol}\\1\\2${groupClose}${startEndLvlSymbol}`)
 		var regExpGlobal = new RegExp(`${startEndLvlSymbol}([${arrayLvlSymbol}|${objectLvlSymbol}])(\\d+)${groupOpen}${startEndLvlSymbol}(.*?)${startEndLvlSymbol}\\1\\2${groupClose}${startEndLvlSymbol}`, 'g')
 		
-		//l(str)
-		
 		// find all matches
 		var matchesGlobal = str.match(regExpGlobal)
-		
-		
 		
 	 	// if no matches => return current string
 		if(!matchesGlobal){
@@ -116,25 +109,18 @@ function findArrayAndObject(str){
 			} else if(parentType === 'array'){
 				str = `[${str}]`
 			}
-
 			return str
 		}
 		
 		// replace original match to tempValue_num (just for edit other props)
 		matchesGlobal.forEach((strWithMatch, i) => {
-			//l('strWithMatch')
-			//l(strWithMatch)
 			str = str.replace(strWithMatch, tempValue + i)
 		})
-
-		//l(parentType)
-		//l(str)
-		
 
 		// normalise string : 
 		str = normalizeString(str)
 
-		
+		// dive inside brakets
 		matchesGlobal.forEach((strWithMatch, i) => {
 			var matches = strWithMatch.match(regExp)
 			var type = matches[1] === objectLvlSymbol ? 'object' : 'array'
@@ -171,7 +157,6 @@ function findArrayAndObject(str){
 					// add " if param string
 					if(param[0] === '"' && param[param.length - 1] !== '"') param = param + '"'
 
-					//l(param)
 					return param
 				}).join(':')
 			}).join(',')

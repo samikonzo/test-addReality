@@ -4,7 +4,7 @@ import './CustomSelect.scss'
 const l = console.log
 l('')
 
-const defaultScreenName = 'no screen name'
+const defaultScreenName = 'no scene name'
 
 
 class CustomSelect extends Component{
@@ -81,8 +81,6 @@ class CustomSelect extends Component{
 	render(){
 		let clickable = this.state.clickable
 		let opened = this.state.opened
-
-		l(clickable)
 
 		let customSelectClass = 'CustomSelect '
 		if(opened) customSelectClass += 'CustomSelect--opened '

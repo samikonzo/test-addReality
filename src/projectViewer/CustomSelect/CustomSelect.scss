@@ -3,23 +3,24 @@ $headerHeight : 20px;
 .CustomSelect{
 	flex: 1 0 100%;
 	position: relative;
-	margin-top: 10px;	
+	height: $headerHeight;
 
 	&--opened{
 
 		.CustomSelect_select{
 			max-height: 999px;
+			border: 1px solid grey;
+			border-top: none;
 		}
-
-		
+	
 	}
 
 }
 
-// its stupid, but idk how use bem with mulriple modifier paired with scss
+// its stupid, but idk how use bem with multiple modifier paired with scss
 .CustomSelect--clickable.CustomSelect--opened{
 	.CustomSelect_header{
-		//border-bottom: 1px solid grey;
+		border-bottom: 1px solid dashed;
 	}
 }
 
@@ -28,13 +29,23 @@ $headerHeight : 20px;
 	position: absolute;
 	width: 100%;
 	height: $headerHeight;
+	line-height: $headerHeight;
 	background: transparent;
-	text-align: center;
-	border: 1px solid grey;
+	text-align: left;
+	overflow: hidden;
+	padding: 0 5px;
+
 
 	&--clickable{
 		cursor: pointer;
 		background: white;
+		border: 1px solid grey;
+	}
+
+	&:hover{
+		.CustomSelect_button{
+			background: lighten(green, 60%);
+		}
 	}
 }
 
@@ -43,13 +54,15 @@ $headerHeight : 20px;
 	user-select: none;
 	position: absolute;
 	right: 0;
-	top: 0;
+	top: -1px; // 
 	width: $headerHeight;
 	height: $headerHeight;
 	line-height: $headerHeight;
 	text-align: center;
 	overflow: hidden;
+	border-left: 1px solid grey;
 	box-sizing: border-box;
+	transition: .5s;
 
 	&::before{
 		content: 'V';
@@ -59,6 +72,7 @@ $headerHeight : 20px;
 		height: 100%;
 		width: 100%;
 		opacity: 1;
+		transition: .5s;
 	}
 
 	&::after{
@@ -69,6 +83,7 @@ $headerHeight : 20px;
 		height: 100%;
 		width: 100%;
 		opacity: 0;
+		transition: .5s;
 	}
 
 	
@@ -94,12 +109,14 @@ $headerHeight : 20px;
 	position: absolute;
 	background: white;
 	overflow: hidden;
+	border: none;
 }
 
 .CustomSelect_option{
 	cursor: pointer;
 	user-select: none;
-	
+	padding: 2px 10px;
+
 	&:hover{
 		background: lighten(grey, 40%);
 	}
