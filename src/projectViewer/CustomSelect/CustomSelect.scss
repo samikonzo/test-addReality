@@ -1,26 +1,111 @@
+$headerHeight : 20px;
+
 .CustomSelect{
-	
+	flex: 1 0 100%;
+	position: relative;
+	margin-top: 10px;	
 
 	&--opened{
 
 		.CustomSelect_select{
-			max-height: auto;
+			max-height: 999px;
+		}
+
+		
+	}
+
+}
+
+// its stupid, but idk how use bem with mulriple modifier paired with scss
+.CustomSelect--clickable.CustomSelect--opened{
+	.CustomSelect_header{
+		//border-bottom: 1px solid grey;
+	}
+}
+
+.CustomSelect_header{
+	user-select: none;
+	position: absolute;
+	width: 100%;
+	height: $headerHeight;
+	background: transparent;
+	text-align: center;
+	border: 1px solid grey;
+
+	&--clickable{
+		cursor: pointer;
+		background: white;
+	}
+}
+
+.CustomSelect_button{
+	cursor: pointer;
+	user-select: none;
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: $headerHeight;
+	height: $headerHeight;
+	line-height: $headerHeight;
+	text-align: center;
+	overflow: hidden;
+	box-sizing: border-box;
+
+	&::before{
+		content: 'V';
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		height: 100%;
+		width: 100%;
+		opacity: 1;
+	}
+
+	&::after{
+		content: '\039b'; 
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width: 100%;
+		opacity: 0;
+	}
+
+	
+
+	&--opened{
+		&::before{
+			opacity: 0;
+		}
+
+		&::after{
+			opacity: 1;
 		}
 	}
 }
-.CustomSelect_header{}
-.CustomSelect_button{}
 
 
 .CustomSelect_select{
 	max-height: 0;
-	height: auto;
-	border: 1px solid red;
+	width: 100%;
+	margin: 0;
+	margin-top: $headerHeight;
+	padding: 0;
 	position: absolute;
 	background: white;
 	overflow: hidden;
 }
 
 .CustomSelect_option{
-	&--selected{}
+	cursor: pointer;
+	user-select: none;
+	
+	&:hover{
+		background: lighten(grey, 40%);
+	}
+
+	&--selected{
+		background: lighten(grey, 30%);
+		cursor: default;
+	}
 }

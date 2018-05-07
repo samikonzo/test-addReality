@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import ScreenViewerZone from './ScreenViewerZone.jsx'
-import './styles.scss'
 
 let l = console.log
 l('')
@@ -11,36 +10,69 @@ class ScreenViewer extends Component{
 		super(props)
 
 		this.state = {
-			//selected: undefined,
+			selected: undefined,
 		}
 
-		//this.mouseoverHandler = this.mouseoverHandler.bind(this)
-		//this.mouseoutHandler = this.mouseoutHandler.bind(this)
+		this.mouseoverHandler = this.mouseoverHandler.bind(this)
+		this.mouseoutHandler = this.mouseoutHandler.bind(this)
 	}
 
 	componentDidMount(){
-		//this.elem.addEventListener('mouseover', this.mouseoverHandler)
-		//this.elem.addEventListener('mouseout', this.mouseoutHandler)
+		this.elem.addEventListener('mouseover', this.mouseoverHandler)
+		this.elem.addEventListener('mouseout', this.mouseoutHandler)
 	}
 
 	componentWillUnmount(){
-		//this.elem.remvoeEventListener('mouseover', this.mouseoverHandler)
-		//this.elem.remvoeEventListener('mouseout', this.mouseoutHandler)
+		this.elem.remvoeEventListener('mouseover', this.mouseoverHandler)
+		this.elem.remvoeEventListener('mouseout', this.mouseoutHandler)
 	}
-/*
+
 	mouseoverHandler(e){
+		var target = e.target
+		if(!target) return
+
+		// if no 'data-zone_id' attribute, search in parent 	
+		while(target){
+			if(target.hasAttribute('data-zone_id')){
+				break;
+			} else {
+				target = target.parentElement
+			}
+		}	
+
+		if(!target) return
+
+		let zone_id = target.dataset.zone_id
+		if(zone_id === this.state.selected) return
+
+		this.setState({
+			selected: zone_id
+		})
 	}
 
 	mouseoutHandler(e){
+		var target = e.relatedTarget
+		
+		if(!target) this.setState({ selected: undefined })
+
+		// if no 'data-zone_id' attribute, search in parent 	
+		while(target){
+			if(target.hasAttribute('data-zone_id')){
+				break;
+			} else {
+				target = target.parentElement
+			}
+		}	
+
+		//if(!target) => selected: undefined
+		if(!target) this.setState({ selected: undefined })
 	}
-*/
+
 
 	render(){
-		l('SCREEN : ')
-		l(this.props.screen)
 		let fullSize = this.props.fullSize
 		let screen = this.props.screen
-		let name = screen && ( screen.label || 'id : ' + screen.id )
+		//let name = screen && ( screen.label || 'id : ' + screen.id )
 
 		// zones sort by area, then map with change values to procent 
 		let zones = screen && screen.zones && screen.zones.sort( (z1, z2) => {
@@ -54,9 +86,6 @@ class ScreenViewer extends Component{
 				zIndex: i,
 			})
 		})
-
-		//l(zones)
-		//l(screen.zones)
 
 		// calculate padding bottom for size control
 		let ratio = fullSize.height / fullSize.width;
@@ -75,15 +104,23 @@ class ScreenViewer extends Component{
 				
 				<div className="ScreenViewer" ref={elem => this.elem = elem} style={{paddingBottom: paddingBottom + '%'}}>
 					{zones &&
-						zones.map(zone => (
-							<ScreenViewerZone key={zone.id} zone={zone}/>
-						))
+						zones.map(zone => {
+							let zoneSelected = false
+
+							if(this.state.selected === undefined){
+								zoneSelected = true
+							} else {
+								if(zone.id.toString() === this.state.selected) zoneSelected = true
+							}
+
+							return <ScreenViewerZone key={zone.id} zone={zone} selected={zoneSelected}/>
+						})
 					}
 				</div>
 
-				{ name && 
+				{/* name && 
 					<div className="ScreenViewer_label">{name}</div>
-				}
+				*/}
 			</div>
 		)
 	}

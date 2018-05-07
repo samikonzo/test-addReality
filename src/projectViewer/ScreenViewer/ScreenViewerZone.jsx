@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import './styles.scss'
 
 const l = console.log
 l('')
@@ -13,13 +12,15 @@ class ScreenViewerZone extends Component{
 			zIndex,
 		}
 
+		let className = 'ScreenViewerZone '
+		if(this.props.selected) className += 'ScreenViewerZone--selected '
+
 		//l(label,width,height,xOffset,yOffset, zIndex)
 
 
 		return(
-			<div className="ScreenViewerZone" style={styleObj} selectable="true">
+			<div className={className} style={styleObj} selectable="true" data-zone_id={this.props.zone.id}>
 				<div className="ScreenViewerZone_label">{label}</div>
-
 			</div>
 		)
 	}

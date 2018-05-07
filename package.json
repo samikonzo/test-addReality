@@ -92,6 +92,8 @@
     "extends": "react-app"
   },
   "devDependencies": {
+    "flow-bin": "^0.71.0",
+    "flow-webpack-plugin": "^1.2.0",
     "node-sass": "^4.9.0",
     "sass-loader": "^7.0.1"
   }
